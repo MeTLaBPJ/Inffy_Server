@@ -23,6 +23,8 @@ import java.util.List;
 @RequestMapping("/api/v1/chat-rooms")
 public class ChatroomController {
 
+    // TODO 채팅룸 기간 만료시, 채팅룸 삭제되는 기능
+
     private final ChatroomService chatroomService;
 
     @Operation(description = "참여중인 채팅룸 조회")

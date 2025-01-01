@@ -183,6 +183,8 @@ public class ChatroomService {
 
         chatroom.decrementGenderCount(member.getGender());
 
+        member.useTicket();
+
         return member.getId();
     }
 
@@ -194,6 +196,8 @@ public class ChatroomService {
         isHost(member, chatroom);
 
         chatroomRepository.delete(chatroom);
+
+        member.useTicket();
 
         return roomId;
     }

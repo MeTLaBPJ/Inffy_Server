@@ -104,4 +104,6 @@ public class Member extends BaseEntity implements UserDetails {
     public void addChatJoin(ChatJoin chatJoin){
         this.chatJoins.add(chatJoin);
     }
+
+    public void useTicket(){this.ticket--;}
 }
