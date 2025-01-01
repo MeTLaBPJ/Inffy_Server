@@ -7,7 +7,6 @@ import org.inffy.domain.chatroom.entity.ChatJoin;
 import org.inffy.domain.chatroom.entity.Chatroom;
 import org.inffy.domain.common.entity.BaseEntity;
 import org.inffy.domain.member.enums.Gender;
-import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,6 +45,9 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private Gender gender;
 
+    @Column(name = "student_id",nullable = false)
+    private String studentId;
+
     @Column(nullable = false)
     private String college;
 
@@ -64,7 +66,7 @@ public class Member extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "host")
     private List<Chatroom> hostedRooms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChatJoin> chatJoins = new ArrayList<>();
 
     @OneToMany(mappedBy = "sender")
@@ -98,4 +100,8 @@ public class Member extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() { return true; }
+
+    public void addChatJoin(ChatJoin chatJoin){
+        this.chatJoins.add(chatJoin);
+    }
 }
