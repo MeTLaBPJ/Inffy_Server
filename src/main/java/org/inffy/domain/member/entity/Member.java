@@ -69,9 +69,6 @@ public class Member extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChatJoin> chatJoins = new ArrayList<>();
 
-    @OneToMany(mappedBy = "sender")
-    private List<Chat> chats = new ArrayList<>();
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();

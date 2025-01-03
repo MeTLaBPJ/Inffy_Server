@@ -10,6 +10,7 @@ import org.inffy.domain.chatroom.dto.res.*;
 import org.inffy.domain.chatroom.service.ChatroomService;
 import org.inffy.domain.common.dto.ResponseDto;
 import org.inffy.domain.member.entity.Member;
+import org.inffy.global.security.jwt.util.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,6 +27,7 @@ public class ChatroomController {
     // TODO 채팅룸 기간 만료시, 채팅룸 삭제되는 기능
 
     private final ChatroomService chatroomService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Operation(description = "참여중인 채팅룸 조회")
     @GetMapping("/active")

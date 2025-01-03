@@ -32,6 +32,9 @@ public enum CustomErrorCode implements ErrorCode{
     JWT_NOT_FOUND(HttpStatus.NOT_FOUND, 404, "[Jwt] 리프레시 토큰 조회 실패"),
     JWT_NOT_MATCH(HttpStatus.BAD_REQUEST, 400, "[Jwt] 리프레시 토큰 불일치"),
 
+    // Member
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, 404, "맴버를 찾을 수 없습니다."),
+
     // RequestBody
     INVALID_PARAMS(HttpStatus.BAD_REQUEST, 400, "유효하지 않은 데이터가 전송되었습니다.");
 

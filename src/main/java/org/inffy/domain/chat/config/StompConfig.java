@@ -21,14 +21,14 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry){
-        registry.enableSimpleBroker("/sub"); // 채팅룸 구독 Prefix
-        registry.setApplicationDestinationPrefixes("/pub"); // 채탱 전송 Prefix
+        registry.enableSimpleBroker("/sub");
+        registry.setApplicationDestinationPrefixes("/pub");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){
         registry.setErrorHandler(stompExceptionHandler) // stompHandler 에서 발생한 에러 처리
-                .addEndpoint("/ws") // 핸드셰이크 경로
+                .addEndpoint("/ws")
                 .setAllowedOriginPatterns("*");
     }
 
