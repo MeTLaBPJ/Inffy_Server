@@ -4,14 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.inffy.domain.chat.dto.req.ChatRequestDto;
 import org.inffy.domain.chat.service.ChatService;
-import org.inffy.domain.chatroom.service.ChatroomService;
-import org.inffy.global.security.jwt.util.JwtTokenProvider;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-
 
 @Slf4j
 @RestController
@@ -38,5 +35,4 @@ public class ChatController {
         sendingOperations.convertAndSend("/sub/chat/room/"+roomId, chatService.convertToLeaveChatResponse(principal));
         chatService.handleLeavingMember(principal, roomId);
     }
-
 }

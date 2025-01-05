@@ -78,6 +78,7 @@ public class ChatService {
                 .chatroom(chatroom)
                 .build();
 
+        chatroom.getChats().add(chat);
         chatRepository.save(chat);
     }
 

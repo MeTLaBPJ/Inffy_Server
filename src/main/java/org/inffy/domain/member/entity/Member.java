@@ -2,7 +2,6 @@ package org.inffy.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.inffy.domain.chat.entity.Chat;
 import org.inffy.domain.chatroom.entity.ChatJoin;
 import org.inffy.domain.chatroom.entity.Chatroom;
 import org.inffy.domain.common.entity.BaseEntity;
