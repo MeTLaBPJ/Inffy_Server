@@ -21,4 +21,12 @@ public class ChatJoin extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chatroom_id", nullable = false)
     private Chatroom chatroom;
+
+    @Column(nullable = false)
+    private Boolean active = false;
+
+    public Boolean updateActive(){
+        this.active = !this.active;
+        return this.active;
+    }
 }

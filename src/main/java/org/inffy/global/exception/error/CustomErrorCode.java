@@ -11,6 +11,9 @@ public enum CustomErrorCode implements ErrorCode{
     // Global
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "서버 에러 발생"),
 
+    //FCM
+    FCM_INITIALIZE_FAILED(HttpStatus.FAILED_DEPENDENCY, 424, "FCM 연결 실패"),
+
     // Chatroom
     CHATROOM_NOT_FOUND(HttpStatus.NOT_FOUND, 404, "채팅룸 조회에 실패하였습니다."),
     CHATROOM_PERMISSION_DENIED(HttpStatus.FORBIDDEN, 403, "채팅룸 조회에 대한 권한이 없습니다."),

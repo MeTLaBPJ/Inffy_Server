@@ -77,6 +77,13 @@ public class ChatroomController {
         return ResponseEntity.status(HttpStatus.OK).body(ResponseDto.of(chatroomService.leaveChatroom(member, roomId), "채팅룸 나가기 처리 완료"));
     }
 
+    @Operation(description = "채팅룸 나가기 - 채팅룸 맴버(뒤로가기,입장하기)")
+    @PatchMapping("/{roomId}/back")
+    public ResponseEntity<ResponseDto<Boolean>> backChatroom(@AuthenticationPrincipal Member member,
+                                                            @PathVariable Long roomId){
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseDto.of(chatroomService.updateActiveStatus(member, roomId), "채팅룸 입장 상태 변경 완료"));
+    }
+
     @Operation(description = "채팅룸 나가기 - 호스트 맴버")
     @DeleteMapping("/{roomId}/host")
     public ResponseEntity<ResponseDto<Long>> deleteChatroom(@AuthenticationPrincipal Member member,

@@ -59,6 +59,9 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private String mbti;
 
+    @Column(name = "fcm_token", nullable = false)
+    private String fcmToken;
+
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private MemberDetail memberDetail;
 
@@ -101,5 +104,7 @@ public class Member extends BaseEntity implements UserDetails {
         this.chatJoins.add(chatJoin);
     }
 
-    public void useTicket(){this.ticket--;}
+    public void useTicket(){ this.ticket--; }
+
+    public void updateFcmToken(String fcmToken){ this.fcmToken = fcmToken; }
 }

@@ -132,6 +132,7 @@ public class ChatroomService {
         ChatJoin chatJoin = ChatJoin.builder()
                 .member(member)
                 .chatroom(chatroom)
+                .active(false)
                 .build();
 
         chatJoinRepository.save(chatJoin);
@@ -200,6 +201,14 @@ public class ChatroomService {
         member.useTicket();
 
         return roomId;
+    }
+
+    @Transactional
+    public Boolean updateActiveStatus(Member member, Long roomId){
+        ChatJoin chatJoin = chatJoinRepository.findByMemberIdAndChatroomId(member.getId(), roomId)
+                .orElseThrow(() -> new RestApiException(CustomErrorCode.MEMBER_NOT_IN_CHATROOM));
+
+        return chatJoin.updateActive();
     }
 
     private void isHost(Member member, Chatroom chatroom){
