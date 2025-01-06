@@ -22,12 +22,12 @@ public class MailController {
     // 이메일 전송
     @PostMapping("/mailSend")
     public ResponseEntity<ResponseDto<EmailResponseDto>> mailSend(@RequestBody @Valid EmailRequestDto emailRequestDto){
-        return ResponseEntity.status(HttpStatus.OK).body(mailService.joinEmail(emailRequestDto.getSchoolEmail()));
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseDto.of(mailService.joinEmail(emailRequestDto.getSchoolEmail()), "Send Verification Email"));
     }
 
     // 이메일 인증
     @PostMapping("/mailAuthCheck")
     public ResponseEntity<ResponseDto<EmailResponseDto>> mailAuthCheck(@RequestBody @Valid EmailCheckDto emailCheckDto){
-        return ResponseEntity.status(HttpStatus.OK).body(mailService.mailAuthCheck(emailCheckDto.getSchoolEmail(), emailCheckDto.getAuthNum()));
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseDto.of(mailService.mailAuthCheck(emailCheckDto.getSchoolEmail(), emailCheckDto.getAuthNum()), "Email Verification"));
     }
 }

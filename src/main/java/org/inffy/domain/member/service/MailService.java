@@ -1,6 +1,5 @@
 package org.inffy.domain.member.service;
 
-import org.inffy.domain.common.dto.ResponseDto;
 import org.inffy.domain.member.dto.res.EmailResponseDto;
 import org.inffy.domain.member.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class MailService {
         authNumber = Integer.parseInt(randomNumber);
     }
 
-    public ResponseDto<EmailResponseDto> mailAuthCheck(String schoolEmail, String authNum) {
+    public EmailResponseDto mailAuthCheck(String schoolEmail, String authNum) {
         EmailResponseDto emailResponseDto = new EmailResponseDto();
 
         emailResponseDto.setAuthNumber(Integer.toString(authNumber));
@@ -49,38 +48,35 @@ public class MailService {
             emailResponseDto.setSuccess(false);
         }
 
-        return ResponseDto.of(emailResponseDto, "이메일 인증");
+        return emailResponseDto;
     }
 
-    public ResponseDto<EmailResponseDto> joinEmail(String schoolEmail){
+    public EmailResponseDto joinEmail(String schoolEmail){
         makeRandomNumber();
         String setFrom = fromEmail;
         String toMail = schoolEmail;
         String title = "회원 가입 인증 이메일 입니다.";
         String content =
-                "[Inffy] 인천대학교 계정 인증 요청" +
+                "<h1>[Inffy] 인천대학교 계정 인증 요청</h1>" +
                         "<br><br>" +
-                        "안녕하세요, 인천대학교 회원님," +
-                        "<br>" +
-                        "Inffy 서비스를 이용해 주셔서 감사합니다." +
+                        "<p>안녕하세요, 인천대학교 회원님,</p>" +
+                        "<p>Inffy 서비스를 이용해 주셔서 감사합니다.</p>" +
                         "<br><br>" +
-                        "아래 인증 번호를 확인하여 이메일 인증을 완료해 주세요." +
+                        "<p>아래 인증 번호를 확인하여 이메일 인증을 완료해 주세요.</p>" +
                         "<br><br>" +
-                        "<strong>인증 번호:</strong> <span style='font-size: 18px; font-weight: bold; color: #007BFF;'>" + authNumber + "</span>" +
+                        "<p><strong>인증 번호:</strong> <span style='font-size: 18px; font-weight: bold; color: #007BFF;'>" + authNumber + "</span></p>" +
                         "<br><br>" +
-                        "※ 이 코드는 10분 동안 유효합니다." +
-                        "<br>" +
-                        "※ 코드를 정확히 입력하지 않을 경우, 인증이 완료되지 않습니다." +
+                        "<ul>" +
+                        "<li>이 코드는 10분 동안 유효합니다.</li>" +
+                        "<li>코드를 정확히 입력하지 않을 경우, 인증이 완료되지 않습니다.</li>" +
+                        "</ul>" +
                         "<br><br>" +
-                        "인증 완료 후, Inffy 서비스를 정상적으로 이용하실 수 있습니다." +
-                        "<br>" +
-                        "문의사항이 있으시면 아래 연락처로 연락주세요." +
+                        "<p>인증 완료 후, Inffy 서비스를 정상적으로 이용하실 수 있습니다.</p>" +
+                        "<p>문의사항이 있으시면 아래 연락처로 연락주세요.</p>" +
                         "<br><br>" +
-                        "감사합니다." +
-                        "<br>" +
-                        "- Inffy 운영팀" +
-                        "<br>" +
-                        "- 문의: inffy-support@inu.ac.kr";
+                        "<p>감사합니다.</p>" +
+                        "<p>- Inffy 운영팀</p>" +
+                        "<p>- 문의: <a href='mailto:inffy-support@inu.ac.kr'>inffy-support@inu.ac.kr</a></p>";
 
         EmailResponseDto emailResponseDto = new EmailResponseDto();
 
@@ -93,7 +89,7 @@ public class MailService {
             emailResponseDto.setSuccess(false);
         }
 
-        return ResponseDto.of(emailResponseDto, "인증 이메일 전송");
+        return emailResponseDto;
     }
 
     private void mailSend(String setFrom, String toMail, String title, String content) {
@@ -110,6 +106,6 @@ public class MailService {
         }
 
         // 5분 동안 인증번호가 생존
-        redisUtil.setDataExpire(Integer.toString(authNumber), toMail, 60*5L);
+        redisUtil.setDataExpire(Integer.toString(authNumber), toMail, 60*10L);
     }
 }
