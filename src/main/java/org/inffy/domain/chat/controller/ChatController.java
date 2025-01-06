@@ -18,7 +18,6 @@ public class ChatController {
     private final SimpMessageSendingOperations sendingOperations;
     private final ChatService chatService;
 
-
     @MessageMapping("/chat/room/message/{roomId}")
     public void sendMessageChat(Principal principal, @Payload ChatRequestDto req, @DestinationVariable Long roomId){
         sendingOperations.convertAndSend("/sub/chat/room/" + roomId, chatService.convertToChatResponse(principal, req));
