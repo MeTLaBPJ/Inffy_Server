@@ -15,6 +15,7 @@ import org.inffy.domain.member.entity.Member;
 import org.inffy.domain.member.enums.Gender;
 import org.inffy.global.exception.entity.RestApiException;
 import org.inffy.global.exception.error.CustomErrorCode;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -213,6 +214,13 @@ public class ChatroomService {
                 .orElseThrow(() -> new RestApiException(CustomErrorCode.MEMBER_NOT_IN_CHATROOM));
 
         return chatJoin.updateActive();
+    }
+
+    @Transactional
+    public void deleteExpiredChatroom(){
+        LocalDate now = LocalDate.now(ZoneId.of("Asia/Seoul"));
+
+        chatroomRepository.deleteAllByDeadLineBefore(now);
     }
 
     private void isHost(Member member, Chatroom chatroom){
