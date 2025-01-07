@@ -15,7 +15,6 @@ import org.inffy.domain.member.entity.Member;
 import org.inffy.domain.member.enums.Gender;
 import org.inffy.global.exception.entity.RestApiException;
 import org.inffy.global.exception.error.CustomErrorCode;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
