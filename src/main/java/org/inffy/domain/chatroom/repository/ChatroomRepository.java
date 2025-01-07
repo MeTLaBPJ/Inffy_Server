@@ -27,4 +27,12 @@ public interface ChatroomRepository extends JpaRepository<Chatroom, Long> {
             "WHERE cj.chatroom.id = :chatroomId")
     List<MemberSummaryResponseDto> findAllMemberSummaryByChatroomId(Long chatroomId);
 
+
+    @Query(value = "SELECT m.fcmToken " +
+            "FROM Chatroom cr " +
+            "JOIN cr.chatJoins cj " +
+            "JOIN cj.member m " +
+            "WHERE cr.id = :chatroomId " +
+            "AND cj.active = false")
+    List<String> findFcmTokensByChatroomId(@Param("chatroomId") Long chatroomId);
 }

@@ -9,6 +9,7 @@ import org.inffy.domain.chatroom.entity.Chatroom;
 import org.inffy.domain.chatroom.enums.RoomType;
 import org.inffy.domain.chatroom.repository.ChatJoinRepository;
 import org.inffy.domain.chatroom.repository.ChatroomRepository;
+import org.inffy.domain.fcm.service.FcmService;
 import org.inffy.domain.member.dto.res.MemberSummaryResponseDto;
 import org.inffy.domain.member.entity.Member;
 import org.inffy.domain.member.enums.Gender;
@@ -29,6 +30,7 @@ public class ChatroomService {
 
     private final ChatroomRepository chatroomRepository;
     private final ChatJoinRepository chatJoinRepository;
+    private final FcmService fcmService;
 
     @Transactional
     public Long createChatroom(Member member, ChatroomCreateRequestDto req){
@@ -153,6 +155,8 @@ public class ChatroomService {
         checkChatroomStart(chatroom);
 
         chatroom.start();
+
+        fcmService.sendFcmChatroomAlarm(chatroom);
 
         return ChatroomStartResponseDto.builder()
                 .roomId(chatroom.getId())

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.inffy.domain.chat.dto.req.ChatRequestDto;
 import org.inffy.domain.chat.service.ChatService;
+import org.inffy.domain.fcm.service.FcmService;
 import org.springframework.messaging.handler.annotation.*;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,11 +18,12 @@ public class ChatController {
 
     private final SimpMessageSendingOperations sendingOperations;
     private final ChatService chatService;
+    private final FcmService fcmService;
 
     @MessageMapping("/chat/room/message/{roomId}")
     public void sendMessageChat(Principal principal, @Payload ChatRequestDto req, @DestinationVariable Long roomId){
         sendingOperations.convertAndSend("/sub/chat/room/" + roomId, chatService.convertToChatResponse(principal, req));
-        chatService.saveMessageChat(principal, req, roomId);
+        fcmService.sendFcmChatAlarm(chatService.saveMessageChat(principal, req, roomId));
     }
 
     @MessageMapping("/chat/room/enter/{roomId}")

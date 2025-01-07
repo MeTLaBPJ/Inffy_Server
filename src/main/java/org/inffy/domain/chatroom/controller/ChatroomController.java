@@ -9,6 +9,7 @@ import org.inffy.domain.chatroom.dto.req.ChatroomScheduleRequestDto;
 import org.inffy.domain.chatroom.dto.res.*;
 import org.inffy.domain.chatroom.service.ChatroomService;
 import org.inffy.domain.common.dto.ResponseDto;
+import org.inffy.domain.fcm.service.FcmService;
 import org.inffy.domain.member.entity.Member;
 import org.inffy.global.security.jwt.util.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ public class ChatroomController {
 
     private final ChatroomService chatroomService;
     private final JwtTokenProvider jwtTokenProvider;
+
 
     @Operation(description = "참여중인 채팅룸 조회")
     @GetMapping("/active")

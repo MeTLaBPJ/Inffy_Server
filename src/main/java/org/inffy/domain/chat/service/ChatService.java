@@ -64,7 +64,7 @@ public class ChatService {
                 .build();
     }
 
-    public void saveMessageChat(Principal principal, ChatRequestDto req, Long roomId){
+    public Chat saveMessageChat(Principal principal, ChatRequestDto req, Long roomId){
         Member member = memberRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new RestApiException(CustomErrorCode.MEMBER_NOT_FOUND));
 
@@ -79,7 +79,9 @@ public class ChatService {
                 .build();
 
         chatroom.getChats().add(chat);
-        chatRepository.save(chat);
+
+
+        return chatRepository.save(chat);
     }
 
     public void handleLeavingMember(Principal principal, Long roomId){

@@ -3,6 +3,7 @@ package org.inffy.global.config;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 import lombok.extern.slf4j.Slf4j;
 import org.inffy.global.exception.entity.RestApiException;
 import org.inffy.global.exception.error.CustomErrorCode;
@@ -32,5 +33,10 @@ public class FcmConfig {
         }catch (IOException e){
             throw new RestApiException(CustomErrorCode.FCM_INITIALIZE_FAILED);
         }
+    }
+
+    @Bean
+    FirebaseMessaging firebaseMessaging() {
+        return FirebaseMessaging.getInstance(FirebaseApp.getInstance());
     }
 }
