@@ -4,6 +4,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.inffy.global.exception.entity.RestApiException;
 import org.inffy.global.exception.error.CustomErrorCode;
@@ -21,7 +22,7 @@ public class FcmConfig {
     @Value("${firebase.config.path}")
     private String configPath;
 
-    @Bean
+    @PostConstruct
     public FirebaseApp firebaseApp(){
         try {
             FirebaseOptions firebaseOptions = FirebaseOptions.builder()
