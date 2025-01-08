@@ -139,4 +139,9 @@ public class MemberService {
             throw new RestApiException(CustomErrorCode.NICKNAME_DUPLICATED);
         return true;
     }
+
+    @Transactional
+    public void initializeTicket() {
+        memberRepository.initializeAllTickets();
+    }
 }
