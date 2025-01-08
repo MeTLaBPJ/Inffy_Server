@@ -44,3 +44,4 @@ out/
 # Application Properties
 src/main/resources/application.yml
 src/main/resources/mail.properties
+src/main/resources/firebase/firebase_service_key.json

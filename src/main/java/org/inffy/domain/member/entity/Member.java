@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Entity
 @Getter
 @Builder
@@ -62,6 +61,9 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private Mbti mbti;
 
+    @Column(name = "fcm_token", nullable = false)
+    private String fcmToken;
+
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private MemberDetail memberDetail;
 
@@ -103,9 +105,15 @@ public class Member extends BaseEntity implements UserDetails {
     public void addChatJoin(ChatJoin chatJoin){
         this.chatJoins.add(chatJoin);
     }
+  
+    public void useTicket(){ this.ticket--; }
 
-    public void useTicket(){this.ticket--;}
-
+    public void updateFcmToken(String fcmToken){ this.fcmToken = fcmToken; }
+  
+    public String getEncodedPwd() {
+        return this.password;
+    }
+  
     @Builder
     public Member(SignupRequestDto signupRequestDto, String encodedPwd) {
         this.username = signupRequestDto.getUsername();
@@ -119,9 +127,5 @@ public class Member extends BaseEntity implements UserDetails {
         this.department = signupRequestDto.getDepartment();
         this.birthday = signupRequestDto.getBirthday();
         this.mbti = signupRequestDto.getMbti();
-    }
-
-    public String getEncodedPwd() {
-        return this.password;
     }
 }
