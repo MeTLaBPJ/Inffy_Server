@@ -46,4 +46,13 @@ public class MemberDetail extends BaseEntity {
         this.drinkingHabit = memberRequestDto.getDrinkingHabit();
         this.smokingStatus = memberRequestDto.getSmokingStatus();
     }
+
+    public MemberDetail(MemberRequestDto memberRequestDto) {
+        this.introduction = memberRequestDto.getIntroduction();
+        this.height = memberRequestDto.getHeight();
+        this.bodyType = memberRequestDto.getBodyType();
+        this.religion = memberRequestDto.getReligion();
+        this.drinkingHabit = memberRequestDto.getDrinkingHabit();
+        this.smokingStatus = memberRequestDto.getSmokingStatus();
+    }
 }

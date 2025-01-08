@@ -2,15 +2,15 @@ package org.inffy.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.inffy.domain.chat.entity.Chat;
 import org.inffy.domain.chatroom.entity.ChatJoin;
 import org.inffy.domain.chatroom.entity.Chatroom;
 import org.inffy.domain.common.entity.BaseEntity;
+import org.inffy.domain.member.dto.req.SignupRequestDto;
 import org.inffy.domain.member.enums.Gender;
 import org.inffy.domain.member.enums.Mbti;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class Member extends BaseEntity implements UserDetails {
     }
 
     @Override
-    public String getPassword() { return null; }
+    public String getPassword() { return this.password; }
 
     @Override
     public String getUsername() { return this.username; }
@@ -105,4 +105,23 @@ public class Member extends BaseEntity implements UserDetails {
     }
 
     public void useTicket(){this.ticket--;}
+
+    @Builder
+    public Member(SignupRequestDto signupRequestDto, String encodedPwd) {
+        this.username = signupRequestDto.getUsername();
+        this.nickname = signupRequestDto.getNickname();
+        this.schoolEmail = signupRequestDto.getSchoolEmail();
+        this.password = encodedPwd;
+        this.ticket = 3;
+        this.gender = signupRequestDto.getGender();
+        this.studentId = signupRequestDto.getStudentId();
+        this.college = signupRequestDto.getCollege();
+        this.department = signupRequestDto.getDepartment();
+        this.birthday = signupRequestDto.getBirthday();
+        this.mbti = signupRequestDto.getMbti();
+    }
+
+    public String getEncodedPwd() {
+        return this.password;
+    }
 }
