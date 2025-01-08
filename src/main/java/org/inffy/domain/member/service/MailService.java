@@ -41,13 +41,12 @@ public class MailService {
         emailResponseDto.setAuthNumber(Integer.toString(authNumber));
         emailResponseDto.setSchoolEmail(schoolEmail);
 
-        if (redisUtil.getData(authNum) == null) {
-            emailResponseDto.setSuccess(false);
-        } else if (redisUtil.getData(authNum).equals(schoolEmail)) {
-            emailResponseDto.setSuccess(true);
+        if (redisUtil.getData(authNum) == null){
+            throw new RestApiException(CustomErrorCode.EMAIL_AUTH_NUMBER_NOT_FOUND);
         }
-        else {
-            emailResponseDto.setSuccess(false);
+
+        if (!redisUtil.getData(authNum).equals(schoolEmail)){
+            throw new RestApiException(CustomErrorCode.EMAIL_MISMATCH);
         }
 
         return emailResponseDto;
@@ -84,11 +83,10 @@ public class MailService {
 
         try {
             mailSend(setFrom, toMail, title, content);
-            emailResponseDto.setSuccess(true);
             emailResponseDto.setSchoolEmail(schoolEmail);
             emailResponseDto.setAuthNumber(Integer.toString(authNumber));
         } catch (MessagingException e) {
-            emailResponseDto.setSuccess(false);
+            throw new RestApiException(CustomErrorCode.EMAIL_VERIFICATION_FAILED);
         }
 
         return emailResponseDto;
