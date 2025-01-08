@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.inffy.domain.common.dto.ResponseDto;
 import org.inffy.domain.member.dto.req.LoginRequestDto;
 import org.inffy.domain.member.dto.req.SignupRequestDto;
+import org.inffy.domain.member.dto.res.LoginResponseDto;
 import org.inffy.domain.member.dto.res.SignupResponseDto;
 import org.inffy.domain.member.service.MemberService;
 import org.inffy.global.security.jwt.dto.JwtTokenRequestDto;
-import org.inffy.global.security.jwt.dto.JwtTokenResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,13 +39,13 @@ public class MemberController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<ResponseDto<JwtTokenResponseDto>> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<ResponseDto<LoginResponseDto>> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
         return ResponseEntity.status(HttpStatus.OK).body(ResponseDto.of(memberService.login(loginRequestDto), "Login Success"));
     }
 
     // 재발급
     @PostMapping("/refresh")
-    public ResponseEntity<ResponseDto<JwtTokenResponseDto>> refresh(@Valid @RequestBody JwtTokenRequestDto jwtTokenRequestDto) {
+    public ResponseEntity<ResponseDto<LoginResponseDto>> refresh(@Valid @RequestBody JwtTokenRequestDto jwtTokenRequestDto) {
         return ResponseEntity.status(HttpStatus.OK).body(ResponseDto.of(memberService.reissue(jwtTokenRequestDto), "Refresh Success"));
     }
 }
