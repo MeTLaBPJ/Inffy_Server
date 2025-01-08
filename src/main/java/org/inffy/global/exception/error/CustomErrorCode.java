@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum CustomErrorCode implements ErrorCode{
-
     // Global
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, 500, "서버 에러 발생"),
 
@@ -38,6 +37,17 @@ public enum CustomErrorCode implements ErrorCode{
 
     // Member
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, 404, "맴버를 찾을 수 없습니다."),
+    LOGIN_MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, 404, "존재하지 않는 이메일"),
+    PASSWORD_NOT_CORRECT(HttpStatus.BAD_REQUEST, 400, "비밀번호 불일치"),
+    EMAIL_DUPLICATED(HttpStatus.BAD_REQUEST, 400, "이메일 중복"),
+    NICKNAME_DUPLICATED(HttpStatus.BAD_REQUEST, 400, "닉네임 중복"),
+    LOGIN_FAILED(HttpStatus.UNAUTHORIZED, 401, "로그인 실패"),
+
+    // Mail
+    EMAIL_SEND_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, 500, "이메일 전송 실패"),
+    EMAIL_VERIFICATION_FAILED(HttpStatus.BAD_REQUEST, 400, "이메일 검증 실패"),
+    EMAIL_AUTH_NUMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, 400, "인증 번호가 유효하지 않습니다."),
+    EMAIL_MISMATCH(HttpStatus.BAD_REQUEST, 400, "이메일이 일치하지 않습니다."),
 
     // RequestBody
     INVALID_PARAMS(HttpStatus.BAD_REQUEST, 400, "유효하지 않은 데이터가 전송되었습니다.");

@@ -1,6 +1,7 @@
 package org.inffy.domain.member.entity;
 
 import org.inffy.domain.common.entity.BaseEntity;
+import org.inffy.domain.member.dto.req.MemberRequestDto;
 import org.inffy.domain.member.enums.BodyType;
 import org.inffy.domain.member.enums.DrinkingHabit;
 import org.inffy.domain.member.enums.Religion;
@@ -36,4 +37,22 @@ public class MemberDetail extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+    public void updateMember(MemberRequestDto memberRequestDto) {
+        this.introduction = memberRequestDto.getIntroduction();
+        this.height = memberRequestDto.getHeight();
+        this.bodyType = memberRequestDto.getBodyType();
+        this.religion = memberRequestDto.getReligion();
+        this.drinkingHabit = memberRequestDto.getDrinkingHabit();
+        this.smokingStatus = memberRequestDto.getSmokingStatus();
+    }
+
+    public MemberDetail(MemberRequestDto memberRequestDto) {
+        this.introduction = memberRequestDto.getIntroduction();
+        this.height = memberRequestDto.getHeight();
+        this.bodyType = memberRequestDto.getBodyType();
+        this.religion = memberRequestDto.getReligion();
+        this.drinkingHabit = memberRequestDto.getDrinkingHabit();
+        this.smokingStatus = memberRequestDto.getSmokingStatus();
+    }
 }
