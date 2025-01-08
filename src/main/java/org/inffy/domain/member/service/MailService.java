@@ -2,6 +2,8 @@ package org.inffy.domain.member.service;
 
 import org.inffy.domain.member.dto.res.EmailResponseDto;
 import org.inffy.domain.member.util.RedisUtil;
+import org.inffy.global.exception.entity.RestApiException;
+import org.inffy.global.exception.error.CustomErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -102,10 +104,10 @@ public class MailService {
             helper.setText(content, true);
             mailSender.send(mimeMessage);
         } catch (javax.mail.MessagingException e) {
-            e.printStackTrace();
+            throw new RestApiException(CustomErrorCode.EMAIL_SEND_FAILED);
         }
 
         // 5분 동안 인증번호가 생존
-        redisUtil.setDataExpire(Integer.toString(authNumber), toMail, 60*10L);
+        redisUtil.setDataExpire(Integer.toString(authNumber), toMail, 60 * 10L);
     }
 }
