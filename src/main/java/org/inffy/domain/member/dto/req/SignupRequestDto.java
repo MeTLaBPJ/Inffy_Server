@@ -51,4 +51,7 @@ public class SignupRequestDto {
 
     @NotNull(message = "MBTI가 비어있습니다.")
     private Mbti mbti;
+
+    @NotBlank(message = "Fcm Token이 비어있습니다.")
+    private String fcmToken;
 }
