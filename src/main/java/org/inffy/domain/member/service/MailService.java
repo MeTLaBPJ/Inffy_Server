@@ -1,6 +1,5 @@
 package org.inffy.domain.member.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.inffy.domain.member.dto.res.EmailResponseDto;
 import org.inffy.domain.member.util.RedisUtil;
 import org.inffy.global.exception.entity.RestApiException;
@@ -16,7 +15,6 @@ import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
 @Service
-@Slf4j
 public class MailService {
     @Autowired
     private JavaMailSender mailSender;
@@ -54,8 +52,7 @@ public class MailService {
         return emailResponseDto;
     }
 
-    public EmailResponseDto joinEmail(String schoolEmail) {
-        log.info("Starting joinEmail process for email: {}", schoolEmail);
+    public EmailResponseDto joinEmail(String schoolEmail){
         makeRandomNumber();
         String setFrom = fromEmail;
         String toMail = schoolEmail;
@@ -88,9 +85,7 @@ public class MailService {
             mailSend(setFrom, toMail, title, content);
             emailResponseDto.setSchoolEmail(schoolEmail);
             emailResponseDto.setAuthNumber(Integer.toString(authNumber));
-            log.info("Mail sent successfully to: {}", schoolEmail);
         } catch (MessagingException e) {
-            log.error("Failed to send mail to: {}", schoolEmail, e);
             throw new RestApiException(CustomErrorCode.EMAIL_VERIFICATION_FAILED);
         }
 
@@ -98,23 +93,19 @@ public class MailService {
     }
 
     private void mailSend(String setFrom, String toMail, String title, String content) {
-        log.info("Sending mail to: {}", toMail);
         MimeMessage mimeMessage = mailSender.createMimeMessage();
-        try {
+        try{
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
-            helper.setFrom(setFrom); // 이메일의 발신자 주소 설정
-            helper.setTo(toMail); // 이메일의 수신자 주소 설정
-            helper.setSubject(title); // 이메일의 제목을 설정
+            helper.setFrom(setFrom); //이메일의 발신자 주소 설정
+            helper.setTo(toMail); //이메일의 수신자 주소 설정
+            helper.setSubject(title); //이메일의 제목을 설정
             helper.setText(content, true);
             mailSender.send(mimeMessage);
-            log.info("Mail sent successfully to: {}", toMail);
         } catch (javax.mail.MessagingException e) {
-            log.error("Failed to send mail to: {}", toMail, e);
             throw new RestApiException(CustomErrorCode.EMAIL_SEND_FAILED);
         }
 
         // 5분 동안 인증번호가 생존
         redisUtil.setDataExpire(Integer.toString(authNumber), toMail, 60 * 10L);
-        log.info("Auth number stored in Redis for email: {}", toMail);
     }
 }
