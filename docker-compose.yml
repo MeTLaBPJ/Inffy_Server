@@ -12,8 +12,8 @@ services:
     networks:
       - app-network
     environment:
-      - SPRING_REDIS_HOST = ${REDIS_HOST}
-      - SPRING_REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
 
   redis:
     container_name: inffy-redis
