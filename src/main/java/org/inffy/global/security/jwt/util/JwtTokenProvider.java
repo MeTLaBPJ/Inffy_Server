@@ -32,7 +32,7 @@ public class JwtTokenProvider implements InitializingBean {
     private final MemberRepository memberRepository;
     private Key key;
 
-    public JwtTokenProvider(@Value("${jwt.secretKey}") String secret, MemberRepository memberRepository) {
+    public JwtTokenProvider(@Value("${jwt.secret}") String secret, MemberRepository memberRepository) {
         this.secret = secret;
 
         // Access Token: 2시간
