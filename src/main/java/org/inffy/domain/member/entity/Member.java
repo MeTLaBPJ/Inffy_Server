@@ -127,5 +127,6 @@ public class Member extends BaseEntity implements UserDetails {
         this.department = signupRequestDto.getDepartment();
         this.birthday = signupRequestDto.getBirthday();
         this.mbti = signupRequestDto.getMbti();
+        this.fcmToken = signupRequestDto.getFcmToken();
     }
 }
