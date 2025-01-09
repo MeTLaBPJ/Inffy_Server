@@ -30,14 +30,14 @@ public class JwtTokenProvider implements InitializingBean {
     private final MemberRepository memberRepository;
     private Key key;
 
-    public JwtTokenProvider(@Value("${jwt.secretKey}") String secret, @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds, MemberRepository memberRepository) {
+    public JwtTokenProvider(@Value("${jwt.secretKey}") String secret, MemberRepository memberRepository) {
         this.secret = secret;
 
-        // Access Token: 30분
-        this.accessTokenValidityInMilliSeconds = tokenValidityInSeconds * 1000;
+        // Access Token: 2시간
+        this.accessTokenValidityInMilliSeconds = 2 * 60 * 60 * 1000L;
 
-        // Refresh Token: 7일
-        this.refreshTokenValidityInMilliSeconds = tokenValidityInSeconds * 60 * 60 * 24 * 7 * 1000;
+        // Refresh Token: 3일
+        this.refreshTokenValidityInMilliSeconds = 3 * 24 * 60 * 60 * 1000L;
         this.memberRepository = memberRepository;
     }
 
