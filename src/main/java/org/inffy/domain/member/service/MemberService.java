@@ -80,7 +80,9 @@ public class MemberService {
             throw new RestApiException(CustomErrorCode.LOGIN_FAILED);
         }
 
-        refreshTokenRepository.deleteByUsername(authentication.getName());
+        if (refreshTokenRepository.findByUsername(member.getUsername()) != null) {
+            refreshTokenRepository.deleteByUsername(member.getUsername());
+        }
 
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
         LoginResponseDto loginResponseDto = jwtTokenProvider.generateTokenDto(authentication);
