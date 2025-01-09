@@ -7,9 +7,11 @@ import org.inffy.domain.member.dto.res.LoginResponseDto;
 import org.inffy.domain.member.entity.Member;
 import org.inffy.domain.member.repository.MemberRepository;
 import org.inffy.global.exception.entity.RestApiException;
+import org.inffy.global.exception.entity.StompJwtException;
 import org.inffy.global.exception.error.CustomErrorCode;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -123,5 +125,32 @@ public class JwtTokenProvider implements InitializingBean {
         } catch (IllegalArgumentException e) {
             throw new RestApiException(CustomErrorCode.JWT_NOT_VALID); // 유효하지 않은 토큰
         }
+    }
+
+    public boolean validateStompJwt(String token) {
+        if(token == null) {
+            throw new JwtException("Jwt AccessToken not found");
+        }
+
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+            return true;
+        } catch (ExpiredJwtException e) {
+            throw new StompJwtException(CustomErrorCode.JWT_ACCESS_TOKEN_EXPIRED);
+        } catch (MalformedJwtException e) {
+            throw new StompJwtException(CustomErrorCode.JWT_MALFORMED);
+        } catch (SignatureException | SecurityException e) {
+            throw new StompJwtException(CustomErrorCode.JWT_SIGNATURE);
+        } catch (UnsupportedJwtException e) {
+            throw new StompJwtException(CustomErrorCode.JWT_UNSUPPORTED);
+        }
+    }
+
+    public String getJwtFromStompRequest(final StompHeaderAccessor accessor){
+        return accessor.getFirstNativeHeader("Authorization").substring(7);
     }
 }

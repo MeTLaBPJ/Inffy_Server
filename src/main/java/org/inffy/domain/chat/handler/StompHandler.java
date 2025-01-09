@@ -31,7 +31,7 @@ public class StompHandler implements ChannelInterceptor {
             String authorization = jwtTokenProvider.getJwtFromStompRequest(accessor);
             jwtTokenProvider.validateStompJwt(authorization);
 
-            Authentication authentication = jwtTokenProvider.getAuthenticationJwt(authorization);
+            Authentication authentication = jwtTokenProvider.getAuthentication(authorization);
             accessor.setUser(authentication);
         }
         return message;
