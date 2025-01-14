@@ -1,8 +1,10 @@
 package org.inffy.domain.member.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.inffy.domain.common.dto.ResponseDto;
+import org.inffy.domain.member.api.MailApiSpecification;
 import org.inffy.domain.member.dto.req.EmailCheckDto;
 import org.inffy.domain.member.dto.req.EmailRequestDto;
 import org.inffy.domain.member.dto.res.EmailResponseDto;
@@ -13,9 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Mail", description = "Mail API")
 @RestController
 @RequiredArgsConstructor
-public class MailController {
+public class MailController implements MailApiSpecification {
 
     private final MailService mailService;
 

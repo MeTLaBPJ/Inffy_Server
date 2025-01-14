@@ -25,7 +25,13 @@ public class JwtFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
 
         // 회원가입, 로그인 로직에 대해서 JWT 토큰 검증을 건너뜀
-        if (requestURI.startsWith("/signup") || "/login".equals(requestURI) || "/mailSend".equals(requestURI) || "/mailAuthCheck".equals(requestURI) ) {
+        if (
+                   requestURI.startsWith("/signup") || requestURI.startsWith("/login")
+                || requestURI.startsWith("/mailSend") || requestURI.startsWith("/mailAuthCheck")
+                || requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/swagger-resources")
+                || requestURI.startsWith("/api/v1/auth") || requestURI.startsWith("/v3/api-docs")
+                || requestURI.startsWith("/webjars") || requestURI.startsWith("/swagger-ui.html")) {
+
             filterChain.doFilter(request, response);
             return;
         }
