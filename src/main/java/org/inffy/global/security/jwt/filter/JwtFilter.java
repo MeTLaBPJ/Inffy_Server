@@ -30,7 +30,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 || requestURI.startsWith("/mailSend") || requestURI.startsWith("/mailAuthCheck")
                 || requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/swagger-resources")
                 || requestURI.startsWith("/api/v1/auth") || requestURI.startsWith("/v3/api-docs")
-                || requestURI.startsWith("/webjars") || requestURI.startsWith("/swagger-ui.html")) {
+                || requestURI.startsWith("/webjars") || requestURI.startsWith("/swagger-ui.html")
+                || requestURI.startsWith("/ws") ) {
 
             filterChain.doFilter(request, response);
             return;

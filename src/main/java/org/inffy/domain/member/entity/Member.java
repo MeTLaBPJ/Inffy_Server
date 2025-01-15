@@ -121,12 +121,12 @@ public class Member extends BaseEntity implements UserDetails {
         this.schoolEmail = signupRequestDto.getSchoolEmail();
         this.password = encodedPwd;
         this.ticket = 3;
-        this.gender = signupRequestDto.getGender();
+        this.gender = Gender.valueOf(signupRequestDto.getGender());
         this.studentId = signupRequestDto.getStudentId();
         this.college = signupRequestDto.getCollege();
         this.department = signupRequestDto.getDepartment();
         this.birthday = signupRequestDto.getBirthday();
-        this.mbti = signupRequestDto.getMbti();
+        this.mbti = Mbti.valueOf(signupRequestDto.getMbti());
         this.fcmToken = signupRequestDto.getFcmToken();
     }
 }
