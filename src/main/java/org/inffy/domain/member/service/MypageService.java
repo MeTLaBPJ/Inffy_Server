@@ -44,7 +44,7 @@ public class MypageService {
             memberDetailRepository.save(memberDetail);
         }
 
-        memberDetail.updateMember(memberRequestDto);
+        memberDetail.updateMember(memberRequestDto, newMember);
 
         memberRepository.save(newMember);
 
