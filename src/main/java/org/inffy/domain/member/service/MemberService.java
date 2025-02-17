@@ -38,7 +38,6 @@ public class MemberService {
         if (!signupRequestDto.getPassword().equals(signupRequestDto.getPasswordCheck())){
             throw new RestApiException(CustomErrorCode.PASSWORD_NOT_CORRECT);
         }
-
         Member member = new Member(signupRequestDto, passwordEncoder.encode(signupRequestDto.getPassword()));
 
         memberRepository.save(member);
