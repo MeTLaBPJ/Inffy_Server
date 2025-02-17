@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.inffy.domain.member.enums.Gender;
 import org.inffy.domain.member.enums.Mbti;
+import org.inffy.global.annotation.EnumPattern;
 
 import java.time.LocalDateTime;
 
@@ -34,7 +35,8 @@ public class SignupRequestDto {
     private String passwordCheck;
 
     @NotNull(message = "성별이 비어있습니다.")
-    private Gender gender;
+    @EnumPattern(enumClass = Gender.class,  message = "유효하지 않은 성별입니다.", ignoreCase = true)
+    private String gender;
 
     @NotBlank(message = "학번이 비어있습니다.")
     private String studentId;
@@ -50,7 +52,8 @@ public class SignupRequestDto {
     private LocalDateTime birthday;
 
     @NotNull(message = "MBTI가 비어있습니다.")
-    private Mbti mbti;
+    @EnumPattern(enumClass = Mbti.class,  message = "유효하지 않은 MBTI입니다.", ignoreCase = true)
+    private String mbti;
 
     @NotBlank(message = "Fcm Token이 비어있습니다.")
     private String fcmToken;

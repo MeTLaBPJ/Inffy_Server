@@ -1,5 +1,7 @@
 package org.inffy.domain.fcm.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.inffy.domain.common.dto.ResponseDto;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Fcm", description = "Fcm API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/fcm")
@@ -19,6 +22,7 @@ public class FcmController {
 
     private final FcmService fcmService;
 
+    @Operation(summary = "Fcm 토큰 저장", description = "Fcm 토큰 저장")
     @PostMapping
     public ResponseEntity<ResponseDto<Boolean>> saveFcmToken(@Valid @RequestBody FcmRequestDto req){
         return ResponseEntity.status(HttpStatus.OK).body(ResponseDto.of(fcmService.saveFcmToken(req), "FCM 토큰 저장 완료"));

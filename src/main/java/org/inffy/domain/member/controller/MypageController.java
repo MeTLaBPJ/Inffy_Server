@@ -1,8 +1,10 @@
 package org.inffy.domain.member.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.inffy.domain.common.dto.ResponseDto;
+import org.inffy.domain.member.api.MypageApiSpecification;
 import org.inffy.domain.member.dto.req.MemberRequestDto;
 import org.inffy.domain.member.dto.res.MemberResponseDto;
 import org.inffy.domain.member.entity.Member;
@@ -12,10 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Mypage", description = "Mypage API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member")
-public class MypageController {
+public class MypageController implements MypageApiSpecification {
 
     private final MypageService mypageService;
 

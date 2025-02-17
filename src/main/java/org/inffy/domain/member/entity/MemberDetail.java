@@ -41,18 +41,18 @@ public class MemberDetail extends BaseEntity {
     public void updateMember(MemberRequestDto memberRequestDto) {
         this.introduction = memberRequestDto.getIntroduction();
         this.height = memberRequestDto.getHeight();
-        this.bodyType = memberRequestDto.getBodyType();
-        this.religion = memberRequestDto.getReligion();
-        this.drinkingHabit = memberRequestDto.getDrinkingHabit();
-        this.smokingStatus = memberRequestDto.getSmokingStatus();
+        this.bodyType = BodyType.valueOf(memberRequestDto.getBodyType());
+        this.religion = Religion.valueOf(memberRequestDto.getReligion());
+        this.drinkingHabit = DrinkingHabit.valueOf(memberRequestDto.getDrinkingHabit());
+        this.smokingStatus = SmokingStatus.valueOf(memberRequestDto.getSmokingStatus());
     }
 
     public MemberDetail(MemberRequestDto memberRequestDto) {
         this.introduction = memberRequestDto.getIntroduction();
         this.height = memberRequestDto.getHeight();
-        this.bodyType = memberRequestDto.getBodyType();
-        this.religion = memberRequestDto.getReligion();
-        this.drinkingHabit = memberRequestDto.getDrinkingHabit();
-        this.smokingStatus = memberRequestDto.getSmokingStatus();
+        this.bodyType = BodyType.valueOf(memberRequestDto.getBodyType());
+        this.religion = Religion.valueOf(memberRequestDto.getReligion());
+        this.drinkingHabit = DrinkingHabit.valueOf(memberRequestDto.getDrinkingHabit());
+        this.smokingStatus = SmokingStatus.valueOf(memberRequestDto.getSmokingStatus());
     }
 }

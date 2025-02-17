@@ -1,4 +1,4 @@
-name: AppCenter-Todo Server CI & CD
+name: Inffy Server CI & CD
 
 on:
   push:
