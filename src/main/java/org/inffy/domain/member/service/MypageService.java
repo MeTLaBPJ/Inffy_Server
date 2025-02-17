@@ -1,5 +1,6 @@
 package org.inffy.domain.member.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.inffy.domain.member.dto.req.MemberRequestDto;
 import org.inffy.domain.member.dto.res.MemberResponseDto;
@@ -29,6 +30,7 @@ public class MypageService {
         }
     }
 
+    @Transactional
     public MemberResponseDto updateMember(Member member, MemberRequestDto memberRequestDto) {
         Member newMember = memberRepository.findById(member.getId())
                 .orElseThrow(() -> new RestApiException(CustomErrorCode.MEMBER_NOT_FOUND));
