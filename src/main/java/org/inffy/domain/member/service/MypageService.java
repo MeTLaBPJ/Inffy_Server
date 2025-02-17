@@ -6,6 +6,7 @@ import org.inffy.domain.member.dto.req.MemberRequestDto;
 import org.inffy.domain.member.dto.res.MemberResponseDto;
 import org.inffy.domain.member.entity.Member;
 import org.inffy.domain.member.entity.MemberDetail;
+import org.inffy.domain.member.repository.MemberDetailRepository;
 import org.inffy.domain.member.repository.MemberRepository;
 import org.inffy.global.exception.entity.RestApiException;
 import org.inffy.global.exception.error.CustomErrorCode;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class MypageService {
 
     private final MemberRepository memberRepository;
+    private final MemberDetailRepository memberDetailRepository;
 
     public MemberResponseDto getMember(Member member) {
         Member newMember = memberRepository.findById(member.getId())
@@ -39,9 +41,12 @@ public class MypageService {
 
         if (memberDetail == null) {
             memberDetail = new MemberDetail(memberRequestDto);
+            memberDetailRepository.save(memberDetail);
         }
 
         memberDetail.updateMember(memberRequestDto);
+
+        memberRepository.save(newMember);
 
         return MemberResponseDto.ofMemberWithDetail(newMember, memberDetail);
     }
