@@ -40,11 +40,11 @@ public class MypageService {
         MemberDetail memberDetail = newMember.getMemberDetail();
 
         if (memberDetail == null) {
-            memberDetail = new MemberDetail(memberRequestDto);
+            memberDetail = new MemberDetail(memberRequestDto, newMember);
             memberDetailRepository.save(memberDetail);
         }
 
-        memberDetail.updateMember(memberRequestDto, newMember);
+        memberDetail.updateMember(memberRequestDto);
 
         memberRepository.save(newMember);
 

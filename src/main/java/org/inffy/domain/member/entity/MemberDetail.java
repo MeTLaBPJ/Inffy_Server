@@ -38,7 +38,16 @@ public class MemberDetail extends BaseEntity {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    public void updateMember(MemberRequestDto memberRequestDto, Member member) {
+    public void updateMember(MemberRequestDto memberRequestDto) {
+        this.introduction = memberRequestDto.getIntroduction();
+        this.height = memberRequestDto.getHeight();
+        this.bodyType = BodyType.valueOf(memberRequestDto.getBodyType());
+        this.religion = Religion.valueOf(memberRequestDto.getReligion());
+        this.drinkingHabit = DrinkingHabit.valueOf(memberRequestDto.getDrinkingHabit());
+        this.smokingStatus = SmokingStatus.valueOf(memberRequestDto.getSmokingStatus());
+    }
+
+    public MemberDetail(MemberRequestDto memberRequestDto, Member member) {
         this.introduction = memberRequestDto.getIntroduction();
         this.height = memberRequestDto.getHeight();
         this.bodyType = BodyType.valueOf(memberRequestDto.getBodyType());
@@ -46,14 +55,5 @@ public class MemberDetail extends BaseEntity {
         this.drinkingHabit = DrinkingHabit.valueOf(memberRequestDto.getDrinkingHabit());
         this.smokingStatus = SmokingStatus.valueOf(memberRequestDto.getSmokingStatus());
         this.member = member;
-    }
-
-    public MemberDetail(MemberRequestDto memberRequestDto) {
-        this.introduction = memberRequestDto.getIntroduction();
-        this.height = memberRequestDto.getHeight();
-        this.bodyType = BodyType.valueOf(memberRequestDto.getBodyType());
-        this.religion = Religion.valueOf(memberRequestDto.getReligion());
-        this.drinkingHabit = DrinkingHabit.valueOf(memberRequestDto.getDrinkingHabit());
-        this.smokingStatus = SmokingStatus.valueOf(memberRequestDto.getSmokingStatus());
     }
 }
